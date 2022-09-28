@@ -1,4 +1,3 @@
-import { Head } from "next/document";
 import React from "react";
 import { Navbar } from "../UI/Navbar";
 
@@ -10,7 +9,7 @@ export function MainLayout({ children }: MainLayoutProps) {
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main className="mt-12">{children}</main>
     </>
   );
 }
