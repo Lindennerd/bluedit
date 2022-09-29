@@ -7,9 +7,9 @@ interface MainLayoutProps {
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (
-    <>
+    <main className="bg-slate-100 h-screen dark:bg-black">
       <Navbar />
       <main className="mt-12">{children}</main>
-    </>
+    </main>
   );
 }
