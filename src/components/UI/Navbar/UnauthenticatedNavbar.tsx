@@ -1,19 +1,42 @@
-import { signIn } from "next-auth/react";
+import { Search } from "./Search";
+import { SignInButton } from "./SignInButon";
+import { BiMenu, BiMenuAltRight } from "react-icons/bi";
+import { useState } from "react";
 
 export function UnauthenticatedNavbar() {
+  const [toggleSidebar, setToggleSidebar] = useState(false);
+
   return (
     <>
       <div className="w-1/2">
-        <input
-          type="text"
-          placeholder="Search"
-          className="outline-secondary_light outline-offset-0 border py-1 px-4 rounded-full w-full hover:border-secondary_light"
-        />
+        <Search />
       </div>
-      <div>
-        <button className="border rounded-full px-4 py-1 bg-secondary_light text-white font-semibold hover:shadow-md">
-          Sign In
+      <div className="hidden sm:block">
+        <SignInButton />
+      </div>
+      <div className="flex sm:hidden max-w-sm items-center">
+        <button onClick={(e) => setToggleSidebar(!toggleSidebar)}>
+          {toggleSidebar && <BiMenuAltRight className="text-xl" />}
+          {!toggleSidebar && <BiMenu className="text-xl" />}
         </button>
+      </div>
+      <div
+        onClick={(e) => setToggleSidebar(!toggleSidebar)}
+        className={`fixed h-screen top-12 right-0 bg-gray-200 opacity-90 ${
+          toggleSidebar ? "w-screen" : "w-0"
+        }`}
+      >
+        <div
+          className={`fixed h-screen top-12 bg-white right-0 w-1/2 shadow-lg border-l transition-all ease-in-out opacity-100 ${
+            toggleSidebar ? "w-1/2" : "w-0"
+          }`}
+        >
+          <ul className="w-full">
+            <li className="p-2 border-b">
+              <SignInButton />
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );
