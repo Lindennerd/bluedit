@@ -2,6 +2,7 @@ import { Search } from "./Search";
 import { SignInButton } from "./SignInButon";
 import { BiMenu, BiMenuAltRight } from "react-icons/bi";
 import { useState } from "react";
+import ThemeChanger from "./ThemeChanger";
 
 export function UnauthenticatedNavbar() {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -11,7 +12,8 @@ export function UnauthenticatedNavbar() {
       <div className="w-1/2">
         <Search />
       </div>
-      <div className="hidden sm:block">
+      <div className="hidden sm:flex gap-4 items-center">
+        <ThemeChanger />
         <SignInButton />
       </div>
       <div className="flex sm:hidden max-w-sm items-center">
@@ -34,6 +36,9 @@ export function UnauthenticatedNavbar() {
           <ul className="w-full">
             <li className="p-2 border-b">
               <SignInButton />
+            </li>
+            <li>
+              <ThemeChanger />
             </li>
           </ul>
         </div>
