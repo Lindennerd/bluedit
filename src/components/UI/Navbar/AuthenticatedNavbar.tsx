@@ -1,6 +1,8 @@
 import { signOut } from "next-auth/react";
-import { FaReddit } from "react-icons/fa";
+import { HomeButton } from "./HomeButton";
+import { Navigation } from "./Navigation";
 import { Search } from "./Search";
+import { UserActions } from "./UserActions";
 
 export function AuthenticatedNavbar() {
   return (
@@ -9,20 +11,22 @@ export function AuthenticatedNavbar() {
         className="flex justify-between items-center fixed top-0 px-4 py-2 h-12 border-b z-10 w-full
      bg-white dark:border-b-slate-600 dark:bg-gray-800"
       >
-        <div
-          className="font-semibold flex items-center gap-2 border-0 px-2 py-1 rounded-full
-        hover:bg-slate-100 dark:hover:bg-slate-600 cursor-pointer"
-        >
-          <FaReddit className="text-primary_light text-2xl dark:text-white" />
-          <span>Bluedit</span>
+        <div className="flex items-center gap-4">
+          <Navigation />
+          <HomeButton />
         </div>
         <div className="w-1/2">
           <Search />
         </div>
-        <div className="flex">
-          <div>User Actions</div>
+        <div className="flex items-center gap-2">
+          <UserActions />
           <div>
-            <button onClick={(e) => signOut()}>Logout</button>
+            <button
+              className="rounded-full px-4 py-1 bg-secondary_light text-white font-semibold hover:shadow-md w-full"
+              onClick={(e) => signOut()}
+            >
+              Logout
+            </button>
           </div>
         </div>
       </nav>
