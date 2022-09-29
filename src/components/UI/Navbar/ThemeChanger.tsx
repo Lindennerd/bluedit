@@ -1,8 +1,23 @@
 import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { Theme, useTheme } from "../../../context/ThemeProvider";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+
+export enum Theme {
+  DARK = "dark",
+  LIGHT = "light",
+}
 
 export default function ThemeChanger() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <button
