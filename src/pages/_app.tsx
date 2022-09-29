@@ -9,7 +9,7 @@ import type { AppRouter } from "../server/router";
 import type { Session } from "next-auth";
 import "../styles/globals.css";
 import { MainLayout } from "../components/Layouts";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "../context/ThemeProvider";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -17,7 +17,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <ThemeProvider attribute="class">
+      <ThemeProvider>
         <MainLayout>
           <Component {...pageProps} />
         </MainLayout>

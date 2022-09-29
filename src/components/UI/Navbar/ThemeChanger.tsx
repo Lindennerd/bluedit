@@ -1,5 +1,5 @@
-import { useTheme } from "next-themes";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { Theme, useTheme } from "../../../context/ThemeProvider";
 
 export default function ThemeChanger() {
   const { theme, setTheme } = useTheme();
@@ -7,7 +7,7 @@ export default function ThemeChanger() {
   return (
     <button
       className="px-2 py-1 rounded-full hover:bg-slate-100 flex dark:hover:bg-slate-600 items-center gap-2"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={() => setTheme(theme === Theme.DARK ? Theme.LIGHT : Theme.DARK)}
     >
       {theme === "dark" ? (
         <>
