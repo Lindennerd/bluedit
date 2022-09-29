@@ -38,7 +38,7 @@ export function UnauthenticatedNavbar() {
           >
             <div
               className={`fixed h-screen top-12 bg-white dark:bg-black right-0 w-1/2 shadow-lg border-l transition-all ease-in-out opacity-100 ${
-                toggleSidebar ? "w-1/2" : "w-0"
+                toggleSidebar ? "w-screen sm:w-1/2" : "w-0"
               }`}
             >
               <ul className="w-full">

@@ -1,8 +1,8 @@
-import { signOut } from "next-auth/react";
 import { HomeButton } from "./HomeButton";
 import { Navigation } from "./Navigation";
 import { Search } from "./Search";
 import { UserActions } from "./UserActions";
+import { UserMenu } from "./UserMenu";
 
 export function AuthenticatedNavbar() {
   return (
@@ -20,14 +20,7 @@ export function AuthenticatedNavbar() {
         </div>
         <div className="flex items-center gap-2">
           <UserActions />
-          <div>
-            <button
-              className="rounded-full px-4 py-1 bg-secondary_light text-white font-semibold hover:shadow-md w-full"
-              onClick={(e) => signOut()}
-            >
-              Logout
-            </button>
-          </div>
+          <UserMenu />
         </div>
       </nav>
     </>
