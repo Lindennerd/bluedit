@@ -24,12 +24,12 @@ export function UnauthenticatedNavbar() {
       </div>
       <div
         onClick={(e) => setToggleSidebar(!toggleSidebar)}
-        className={`fixed h-screen top-12 right-0 bg-gray-200 opacity-90 ${
+        className={`fixed h-screen top-12 right-0 bg-gray-200 dark:bg-slate-700 opacity-90 ${
           toggleSidebar ? "w-screen" : "w-0"
         }`}
       >
         <div
-          className={`fixed h-screen top-12 bg-white right-0 w-1/2 shadow-lg border-l transition-all ease-in-out opacity-100 ${
+          className={`fixed h-screen top-12 bg-white dark:bg-black right-0 w-1/2 shadow-lg border-l transition-all ease-in-out opacity-100 ${
             toggleSidebar ? "w-1/2" : "w-0"
           }`}
         >
@@ -37,7 +37,7 @@ export function UnauthenticatedNavbar() {
             <li className="p-2 border-b">
               <SignInButton />
             </li>
-            <li>
+            <li className="p-2 border-b">
               <ThemeChanger />
             </li>
           </ul>
