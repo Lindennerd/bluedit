@@ -6,7 +6,7 @@ import Link from "next/link";
 export function UserActions() {
   return (
     <Popover className="flex">
-      <Popover.Button className="p-2 rounded-lg hover:bg-slate-100">
+      <Popover.Button className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600">
         <AiOutlinePlus className="text-2xl" />
       </Popover.Button>
       <Transition
@@ -19,7 +19,7 @@ export function UserActions() {
         leaveTo="opacity-0 translate-y-1"
       >
         <Popover.Panel className="absolute z-10 top-12 right-3">
-          <div className="p-2 border rounded-lg shadow-md w-fit bg-white">
+          <div className="p-2 border rounded-lg shadow-md w-fit bg-white dark:bg-gray-800">
             <ul>
               <li>
                 <a>New Post</a>
