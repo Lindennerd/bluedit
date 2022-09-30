@@ -11,6 +11,14 @@
         @apply ml-4
     }
 
+    .input-file input[type="file"] {
+        @apply hidden
+    }
+
+    .input-file label {
+        @apply cursor-pointer
+    }
+
     input[type="text"] {
         @apply px-4 py-2 rounded-full outline-none focus:border-secondary_light focus:border
         bg-slate-200 dark:bg-gray-600
