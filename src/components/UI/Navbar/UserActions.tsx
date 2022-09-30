@@ -21,11 +21,13 @@ export function UserActions() {
         <Popover.Panel className="absolute z-10 top-12 right-3">
           <div className="p-2 border rounded-lg shadow-md w-fit bg-white dark:bg-gray-800">
             <ul>
-              <li>
+              <li className="p-2 hover:dark:bg-gray-600 hover:bg-slate-100 rounded-md">
                 <a>New Post</a>
               </li>
-              <li>
-                <a>New Community</a>
+              <li className="p-2 hover:dark:bg-gray-600 hover:bg-slate-100 rounded-md">
+                <Link href="community/new">
+                  <a>New Community</a>
+                </Link>
               </li>
             </ul>
           </div>

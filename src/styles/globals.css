@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .form-group {
+        @apply flex flex-col
+    }
+
+    .form-group label {
+        @apply ml-4
+    }
+
+    input[type="text"] {
+        @apply px-4 py-2 rounded-full outline-none focus:border-secondary_light focus:border
+        bg-slate-200 dark:bg-gray-600
+    }
+
+    textarea {
+        @apply px-4 py-2 rounded-md outline-none focus:border-secondary_light focus:border
+        bg-slate-200 dark:bg-gray-600
+    }
+
+    button[type="submit"] {
+        @apply px-4 py-2 bg-secondary_light rounded-full text-white font-semibold
+    }
+
+    form {
+        @apply flex flex-col gap-2 hover:shadow-lg
+    }
+}
