@@ -1,8 +1,5 @@
-import Image from "next/image";
-import { FormEvent, useEffect, useState } from "react";
-import useConvertBase64 from "../../hooks/useConverBase64";
+import { FormEvent, useState } from "react";
 import { CommunityInputSchema } from "../../schemas/community.schema";
-import { InputImage } from "../UI/Input/InputImage";
 
 const initialValues: CommunityInputSchema = {
   description: "",
@@ -10,51 +7,56 @@ const initialValues: CommunityInputSchema = {
   name: "",
 };
 
-export function CommunityForm() {
-  const { convertBase64 } = useConvertBase64();
+interface CommunityFormProps {
+  error?: string | null;
+  loading?: boolean;
+  onSubmit: (input: CommunityInputSchema) => void;
+}
+
+export function CommunityForm({
+  onSubmit,
+  error,
+  loading,
+}: CommunityFormProps) {
   const [communityForm, setCommunityForm] =
     useState<CommunityInputSchema>(initialValues);
 
-  async function handleImage(files: FileList | null) {
-    if (!files || files.length <= 0) return;
-    const encoded = await convertBase64(files!.item(0)!);
-    setCommunityForm((form) => {
-      return { ...form, image: encoded };
-    });
-  }
-
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(communityForm);
+    onSubmit(communityForm);
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="flex justify-start gap-2">
-        <div className="form-group w-full">
-          <label>Name</label>
-          <input
-            placeholder="Give a cool name for your community"
-            type="text"
-          />
-        </div>
-        <div className="form-group w-full">
-          <InputImage
-            label="Image"
-            onChange={handleImage}
-            accept={"image/png, image/jpg, image/gif, image/jpeg"}
-          />
-          <Image src={communityForm.image} width={20} height={20} />
-        </div>
+    <form onSubmit={handleSubmit}>
+      {error && <span className="text-red-600">{error}</span>}
+      <div className="form-group w-full">
+        <label>Name</label>
+        <input
+          value={communityForm.name}
+          placeholder="Give a cool name for your community"
+          type="text"
+          onChange={(e) =>
+            setCommunityForm((curr) => ({ ...curr, name: e.target.value }))
+          }
+        />
       </div>
       <div className="form-group">
         <label>Description</label>
         <textarea
           rows={5}
+          value={communityForm.description}
           placeholder="Describe what your community is about"
+          onChange={(e) =>
+            setCommunityForm((curr) => ({
+              ...curr,
+              description: e.target.value,
+            }))
+          }
         />
       </div>
-      <button type="submit">Save</button>
+      <button disabled={loading} type="submit">
+        {loading ? "Saving..." : "Save"}
+      </button>
     </form>
   );
 }

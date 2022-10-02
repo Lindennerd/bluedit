@@ -46,18 +46,19 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(cuid())
-  name          String     @unique
-  email         String?    @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  Post          Post[]
-  Upvote        Upvote[]
-  Downvote      Downvote[]
-  Community     Community? @relation(fields: [communityId], references: [id])
-  communityId   String?
+  id              String            @id @default(cuid())
+  name            String            @unique
+  email           String?           @unique
+  emailVerified   DateTime?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  Post            Post[]
+  Upvote          Upvote[]
+  Downvote        Downvote[]
+  Community       Community?        @relation(fields: [communityId], references: [id])
+  communityId     String?
+  CommunityMember CommunityMember[]
 }
 
 model VerificationToken {
@@ -112,11 +113,22 @@ model Label {
 }
 
 model Community {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  description String
-  image       String
-  createdAt   DateTime @default(now())
-  members     User[]
+  id          String            @id @default(cuid())
+  name        String            @unique
+  description String?
+  image       String?
+  createdAt   DateTime          @default(now())
+  members     CommunityMember[]
   posts       Post[]
+  User        User[]
+}
+
+model CommunityMember {
+  id          String    @id @default(cuid())
+  user        User      @relation(fields: [userId], references: [id])
+  community   Community @relation(fields: [communityId], references: [id])
+  isOwner     Boolean   @default(false)
+  isMod       Boolean   @default(false)
+  userId      String
+  communityId String
 }

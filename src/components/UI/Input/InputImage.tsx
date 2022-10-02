@@ -1,24 +1,36 @@
+import { useRef } from "react";
+
 interface InputImageProps {
   label: string;
   accept?: string;
+  className?: string;
   onChange: (files: FileList | null) => void;
 }
 
-export function InputImage({ label, accept, onChange }: InputImageProps) {
+export function InputImage({
+  label,
+  accept,
+  onChange,
+  className,
+}: InputImageProps) {
+  let inputRef: HTMLInputElement | null;
+
   return (
-    <div className="input-file">
-      <label
-        htmlFor="image-id"
-        className="px-2 py-2 rounded-full font-semibold bg-secondary_light"
+    <>
+      <button
+        type="button"
+        className={className}
+        onClick={(e) => inputRef?.click()}
       >
         {label}
-        <input
-          id="image-id"
-          type="file"
-          accept={accept}
-          onChange={(e) => onChange(e.target.files)}
-        />
-      </label>
-    </div>
+      </button>
+      <input
+        ref={(refParam) => (inputRef = refParam)}
+        type="file"
+        accept={accept}
+        onChange={(e) => onChange(e.target.files)}
+        className="hidden"
+      />
+    </>
   );
 }
