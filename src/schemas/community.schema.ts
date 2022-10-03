@@ -1,3 +1,4 @@
+import { inferQueryOutput } from "./../utils/trpc";
 import { z } from "zod";
 
 export const communityInputSchema = z.object({
@@ -6,4 +7,5 @@ export const communityInputSchema = z.object({
   description: z.string(),
 });
 
+export type Community = inferQueryOutput<"community.findByName">;
 export type CommunityInputSchema = z.TypeOf<typeof communityInputSchema>;

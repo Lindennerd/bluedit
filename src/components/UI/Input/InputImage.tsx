@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 interface InputImageProps {
   label: string;
   accept?: string;
