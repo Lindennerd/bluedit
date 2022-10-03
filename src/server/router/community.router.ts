@@ -48,8 +48,20 @@ export const communityRouter = createProtectedRouter()
     }),
     async resolve({ input, ctx }) {
       if (!input.name) return null;
-      return await ctx.prisma.community.findFirst({
+      const community = await ctx.prisma.community.findFirst({
+        include: {
+          members: true,
+        },
         where: { slug: getSlug(input.name) },
       });
+
+      if (!community)
+        throw new TRPCError({
+          cause: "Community not found",
+          code: "NOT_FOUND",
+          message: "Community not found",
+        });
+
+      return community;
     },
   });

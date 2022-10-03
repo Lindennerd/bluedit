@@ -7,5 +7,5 @@ export const communityInputSchema = z.object({
   description: z.string(),
 });
 
-export type Community = inferQueryOutput<"community.findByName">;
+export type Community = inferQueryOutput<"community.findBySlug">;
 export type CommunityInputSchema = z.TypeOf<typeof communityInputSchema>;
