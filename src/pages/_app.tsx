@@ -11,6 +11,7 @@ import "../styles/globals.css";
 import { MainLayout } from "../components/Layouts";
 import { ThemeProvider } from "next-themes";
 import { trpcConfig } from "../utils/trpc-config";
+import { ToastContainer } from "react-toastify";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -20,6 +21,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <ThemeProvider attribute="class">
         <MainLayout>
+          <ToastContainer />
           <Component {...pageProps} />
         </MainLayout>
       </ThemeProvider>

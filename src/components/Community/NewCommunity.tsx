@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { CommunityInputSchema } from "../../schemas/community.schema";
 import { trpc } from "../../utils/trpc";
@@ -7,20 +8,23 @@ import { CommunityForm } from "./Form";
 
 export function NewComNewmunity() {
   const { push } = useRouter();
-  const createCommunityMutation = trpc.useMutation(["community.create"]);
+  const [error, setError] = useState("");
+  const createCommunityMutation = trpc.useMutation(["community.create"], {
+    onSuccess(data) {
+      push(`/c/${data.slug}`);
+    },
+    onError(error) {
+      setError(error.message);
+    },
+  });
 
-  function saveCommunity(input: CommunityInputSchema): void {
+  function saveCommunity(input: CommunityInputSchema) {
     createCommunityMutation.mutate(input);
-    if (createCommunityMutation.error) {
-      toast.error(createCommunityMutation.error.message);
-    } else {
-      push(`/c/${input.name}`);
-    }
   }
 
   return (
     <SimpleCard>
-      <ToastContainer />
+      {error && <span className="text-red-600">{error}</span>}
       <CommunityForm
         onSubmit={saveCommunity}
         error={createCommunityMutation.error?.message}

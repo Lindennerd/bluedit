@@ -25,7 +25,7 @@ export function UserActions() {
                 <a>New Post</a>
               </li>
               <li className="p-2 hover:dark:bg-gray-600 hover:bg-slate-100 rounded-md">
-                <Link href="community/new">
+                <Link href="/community/new">
                   <a>New Community</a>
                 </Link>
               </li>
