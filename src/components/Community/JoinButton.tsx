@@ -11,9 +11,9 @@ export function JoinButton({ community, onMutate }: JoinButtonProps) {
   const [loading, setLoading] = useState(false);
 
   const joinMutation = trpc.useMutation(["community.join"], {
-    onSuccess: async () => onMutate(),
     onMutate: async () => setLoading(true),
     onSettled: async () => setLoading(false),
+    onSuccess: async () => onMutate(),
   });
 
   const leaveMutation = trpc.useMutation(["community.leave"], {

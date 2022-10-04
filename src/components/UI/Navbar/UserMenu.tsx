@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import ThemeChanger from "./ThemeChanger";
+import { UserButton } from "./UserButton";
+import { UserImage } from "./UserImage";
 
 export function UserMenu() {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -11,8 +13,8 @@ export function UserMenu() {
 
   return (
     <Popover className="flex">
-      <Popover.Button className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600">
-        <FaUserCircle className="text-2xl" />
+      <Popover.Button className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 outline-none">
+        <UserImage width={35} height={35} />
       </Popover.Button>
       <Transition
         as={Fragment}
@@ -26,6 +28,9 @@ export function UserMenu() {
         <Popover.Panel className="absolute z-10 top-12 right-3">
           <div className="p-2 border rounded-lg shadow-md w-fit bg-white dark:bg-gray-800">
             <ul>
+              <li>
+                <UserButton />
+              </li>
               <li>
                 <ThemeChanger />
               </li>
