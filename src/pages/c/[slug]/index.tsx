@@ -26,7 +26,7 @@ export default function CommunityPage() {
       <div className="bg-white dark:bg-gray-800 w-full flex flex-row justify-between gap-2 p-2">
         <div className="flex gap-4 mt-[-2rem] items-end py-2">
           <div className="rounded-full bg-secondary_light">
-            <RiGroup2Line className="text-7xl" />
+            <RiGroup2Line className="text-7xl text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-semibold">
@@ -38,7 +38,10 @@ export default function CommunityPage() {
           </div>
         </div>
         <div>
-          <JoinButton community={communityQuery.data!} />
+          <JoinButton
+            community={communityQuery.data!}
+            onMutate={() => communityQuery.refetch()}
+          />
         </div>
       </div>
       <div>Community Body</div>

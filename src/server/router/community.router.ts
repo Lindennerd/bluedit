@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createProtectedRouter } from "./context";
+import { createRouter } from "./context";
 import { communityInputSchema } from "../../schemas/community.schema";
 import { TRPCError } from "@trpc/server";
 
@@ -7,10 +7,12 @@ function getSlug(name: string) {
   return name.toLocaleLowerCase().replace(" ", "");
 }
 
-export const communityRouter = createProtectedRouter()
+export const communityRouter = createRouter()
   .mutation("create", {
     input: communityInputSchema,
     async resolve({ input, ctx }) {
+      if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+
       const count = await ctx.prisma.community.count({
         where: { slug: getSlug(input.name) },
       });
@@ -32,7 +34,7 @@ export const communityRouter = createProtectedRouter()
                   isOwner: true,
                   user: {
                     connect: {
-                      id: ctx.session.user.id,
+                      id: ctx.session.user?.id,
                     },
                   },
                 },
@@ -62,6 +64,97 @@ export const communityRouter = createProtectedRouter()
           message: "Community not found",
         });
 
-      return community;
+      return {
+        ...community,
+        isMember: community.members.some(
+          (member) => ctx.session && member.userId === ctx.session.user?.id
+        ),
+        isOwner:
+          community?.members.find(
+            (member) =>
+              ctx.session &&
+              member.userId === ctx.session?.user?.id &&
+              member.isOwner
+          ) !== undefined,
+      };
+    },
+  })
+  .mutation("join", {
+    input: z.object({
+      community: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+      const count = await ctx.prisma.community.count({
+        where: { id: input.community },
+      });
+
+      if (count <= 0)
+        throw new TRPCError({
+          message: "Invalid Community",
+          code: "BAD_REQUEST",
+        });
+
+      const member = await ctx.prisma.communityMember.findFirst({
+        where: {
+          AND: [
+            { userId: ctx.session.user?.id },
+            { communityId: input.community },
+          ],
+        },
+      });
+
+      if (member) {
+        throw new TRPCError({
+          message: "You're already a member of this community",
+          code: "BAD_REQUEST",
+        });
+      }
+
+      return await ctx.prisma.communityMember.create({
+        data: {
+          userId: ctx.session.user!.id,
+          communityId: input.community,
+        },
+      });
+    },
+  })
+  .mutation("leave", {
+    input: z.object({
+      community: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      if (!ctx.session) throw new TRPCError({ code: "UNAUTHORIZED" });
+      const count = await ctx.prisma.community.count({
+        where: { id: input.community },
+      });
+
+      if (count <= 0)
+        throw new TRPCError({
+          message: "Invalid Community",
+          code: "BAD_REQUEST",
+        });
+
+      const member = await ctx.prisma.communityMember.findFirst({
+        where: {
+          AND: [
+            { userId: ctx.session.user?.id },
+            { communityId: input.community },
+          ],
+        },
+      });
+
+      if (!member) {
+        throw new TRPCError({
+          message: "You're not a member of this community",
+          code: "BAD_REQUEST",
+        });
+      }
+
+      return await ctx.prisma.communityMember.delete({
+        where: {
+          id: member.id,
+        },
+      });
     },
   });

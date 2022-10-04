@@ -35,6 +35,7 @@ export const trpcConfig = {
         defaultOptions: {
           queries: {
             staleTime: 60,
+            caches: true,
           },
         },
       },
