@@ -22,7 +22,9 @@ export function UserActions() {
           <div className="p-2 border rounded-lg shadow-md w-fit bg-white dark:bg-gray-800">
             <ul>
               <li className="p-2 hover:dark:bg-gray-600 hover:bg-slate-100 rounded-md">
-                <a>New Post</a>
+                <Link href="/posts/new">
+                  <a>New Post</a>
+                </Link>
               </li>
               <li className="p-2 hover:dark:bg-gray-600 hover:bg-slate-100 rounded-md">
                 <Link href="/community/new">

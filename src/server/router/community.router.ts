@@ -79,6 +79,19 @@ export const communityRouter = createRouter()
       };
     },
   })
+  .query("findUsersCommunity", {
+    async resolve({ ctx }) {
+      return await ctx.prisma.community.findMany({
+        where: {
+          members: {
+            some: {
+              userId: ctx.session?.user?.id,
+            },
+          },
+        },
+      });
+    },
+  })
   .mutation("join", {
     input: z.object({
       community: z.string(),

@@ -5,6 +5,7 @@ import { useState } from "react";
 import ThemeChanger from "./ThemeChanger";
 import { FaReddit } from "react-icons/fa";
 import { HomeButton } from "./HomeButton";
+import { signOut } from "next-auth/react";
 
 export function UnauthenticatedNavbar() {
   const [toggleSidebar, setToggleSidebar] = useState(false);

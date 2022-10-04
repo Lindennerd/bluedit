@@ -11,9 +11,13 @@ export default function UserPage() {
       <div className="bg-secondary_light flex gap-2 items-center p-2">
         <UserImage height={100} width={100} />
         <div className="font-semibold space-y-2">
-          <p className="rounded-full px-2 bg-white">{session?.user?.name}</p>
-          <p className="rounded-full px-2 bg-white">{session?.user?.email}</p>
-          <p className="rounded-full px-2 bg-white">{`u/${session?.user?.name}`}</p>
+          <p className="rounded-full px-2 bg-white dark:bg-gray-600">
+            {session?.user?.name}
+          </p>
+          <p className="rounded-full px-2 bg-white dark:bg-gray-600">
+            {session?.user?.email}
+          </p>
+          <p className="rounded-full px-2 bg-white dark:bg-gray-600">{`u/${session?.user?.name}`}</p>
         </div>
       </div>
     </>
