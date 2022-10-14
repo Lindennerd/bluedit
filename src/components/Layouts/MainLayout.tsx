@@ -11,7 +11,7 @@ export function MainLayout({ children }: MainLayoutProps) {
   const { status } = useSession();
 
   return (
-    <main className="bg-slate-100 min-h-screen dark:bg-black transition-colors">
+    <main className="bg-slate-200 min-h-screen dark:bg-black transition-colors">
       {status === "authenticated" ? (
         <AuthenticatedNavbar />
       ) : (
