@@ -1,5 +1,7 @@
 import { FormEvent, useState } from "react";
 import { CommunityInputSchema } from "../../schemas/community.schema";
+import { FormGroup } from "../UI/Form/FormGroup";
+import { Textarea } from "../UI/Form/Textarea";
 import { TextInput } from "../UI/Form/TextInput";
 
 interface CommunityFormProps {
@@ -23,22 +25,25 @@ export function CommunityForm({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-2 hover:shadow-lg"
+    >
       {error && <span className="text-red-600">{error}</span>}
-      <div className="form-group w-full">
-        <label>Name</label>
+
+      <FormGroup>
         <TextInput
+          label="Name"
           placeholder="Give a cool name for your community"
           value={communityForm.name}
           onChange={(e) =>
             setCommunityForm((curr) => ({ ...curr, name: e.target.value }))
           }
         />
-      </div>
-      <div className="form-group">
-        <label>Description</label>
-        <textarea
-          rows={5}
+      </FormGroup>
+      <FormGroup>
+        <Textarea
+          label="Description"
           value={communityForm.description}
           placeholder="Describe what your community is about"
           onChange={(e) =>
@@ -48,8 +53,13 @@ export function CommunityForm({
             }))
           }
         />
-      </div>
-      <button disabled={loading} type="submit">
+      </FormGroup>
+
+      <button
+        disabled={loading}
+        type="submit"
+        className="px-4 py-2 bg-secondary_light rounded-full text-white font-semibold"
+      >
         {loading ? "Saving..." : "Save"}
       </button>
     </form>

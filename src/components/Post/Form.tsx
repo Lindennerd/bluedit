@@ -1,5 +1,8 @@
 import { TextInput } from "../UI/Form/TextInput";
 import { InputImage } from "../UI/Form/InputImage";
+import { trpc } from "../../utils/trpc";
+import { FormGroup } from "../UI/Form/FormGroup";
+import { Textarea } from "../UI/Form/Textarea";
 
 export function PostForm() {
   const { data: communities } = trpc.useQuery(
@@ -11,8 +14,8 @@ export function PostForm() {
 
   return (
     <div>
-      <form>
-        <div className="w-full">
+      <form className="w-full flex flex-col gap-2">
+        {/* <div className="w-full">
           {communities && (
             <InputSelect
               label="Where to post"
@@ -22,23 +25,21 @@ export function PostForm() {
               }))}
             />
           )}
-        </div>
-        <div className="form-group w-full">
-          <label htmlFor="post-title">Title</label>
-          <TextInput />
-        </div>
-        <div className="form-group w-full">
-          <label htmlFor="post-content">Content</label>
-          <textarea rows={5} placeholder="The content of your post" />
-        </div>
-        <div className="form-group w-full">
+        </div> */}
+        <FormGroup>
+          <TextInput label="Title" />
+        </FormGroup>
+        <FormGroup>
+          <Textarea label="Content" />
+        </FormGroup>
+        <FormGroup>
           <InputImage
             label="Add an image to your post"
             accept="*"
             onChange={(e) => {}}
             className="p-2 rounded-full bg-secondary_light"
           />
-        </div>
+        </FormGroup>
         <button type="submit">Save</button>
       </form>
     </div>
