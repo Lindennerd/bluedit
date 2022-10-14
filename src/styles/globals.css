@@ -19,10 +19,6 @@
         @apply cursor-pointer
     }
 
-    input[type="text"] {
-        @apply px-4 py-2 rounded-full outline-none focus:border-secondary_light focus:border
-        bg-slate-200 dark:bg-gray-600
-    }
 
     textarea {
         @apply px-4 py-2 rounded-md outline-none focus:border-secondary_light focus:border

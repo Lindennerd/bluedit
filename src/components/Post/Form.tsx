@@ -1,4 +1,5 @@
-import { InputImage } from "../UI/Input/InputImage";
+import { TextInput } from "../UI/Form/TextInput";
+import { InputImage } from "../UI/Form/InputImage";
 
 export function PostForm() {
   return (
@@ -6,7 +7,7 @@ export function PostForm() {
       <form>
         <div className="form-group w-full">
           <label htmlFor="post-title">Title</label>
-          <input type="text" id="post-title" />
+          <TextInput />
         </div>
         <div className="form-group w-full">
           <label htmlFor="post-content">Content</label>
