@@ -1,11 +1,6 @@
 import { FormEvent, useState } from "react";
 import { CommunityInputSchema } from "../../schemas/community.schema";
-
-const initialValues: CommunityInputSchema = {
-  description: "",
-  image: "",
-  name: "",
-};
+import { TextInput } from "../UI/Form/TextInput";
 
 interface CommunityFormProps {
   error?: string | null;
@@ -18,8 +13,9 @@ export function CommunityForm({
   error,
   loading,
 }: CommunityFormProps) {
-  const [communityForm, setCommunityForm] =
-    useState<CommunityInputSchema>(initialValues);
+  const [communityForm, setCommunityForm] = useState<CommunityInputSchema>(
+    {} as CommunityInputSchema
+  );
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -31,10 +27,9 @@ export function CommunityForm({
       {error && <span className="text-red-600">{error}</span>}
       <div className="form-group w-full">
         <label>Name</label>
-        <input
-          value={communityForm.name}
+        <TextInput
           placeholder="Give a cool name for your community"
-          type="text"
+          value={communityForm.name}
           onChange={(e) =>
             setCommunityForm((curr) => ({ ...curr, name: e.target.value }))
           }

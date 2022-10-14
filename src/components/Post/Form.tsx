@@ -1,6 +1,5 @@
-import { trpc } from "../../utils/trpc";
-import { InputImage } from "../UI/Input/InputImage";
-import { InputSelect } from "../UI/Input/InputSelect";
+import { TextInput } from "../UI/Form/TextInput";
+import { InputImage } from "../UI/Form/InputImage";
 
 export function PostForm() {
   const { data: communities } = trpc.useQuery(
@@ -26,7 +25,7 @@ export function PostForm() {
         </div>
         <div className="form-group w-full">
           <label htmlFor="post-title">Title</label>
-          <input type="text" id="post-title" />
+          <TextInput />
         </div>
         <div className="form-group w-full">
           <label htmlFor="post-content">Content</label>
