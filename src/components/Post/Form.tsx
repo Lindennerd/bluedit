@@ -1,9 +1,29 @@
+import { trpc } from "../../utils/trpc";
 import { InputImage } from "../UI/Input/InputImage";
+import { InputSelect } from "../UI/Input/InputSelect";
 
 export function PostForm() {
+  const { data: communities } = trpc.useQuery(
+    ["community.findUsersCommunity"],
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
   return (
     <div>
       <form>
+        <div className="w-full">
+          {communities && (
+            <InputSelect
+              label="Where to post"
+              options={communities.map((community) => ({
+                displayValue: community.name,
+                value: community.id,
+              }))}
+            />
+          )}
+        </div>
         <div className="form-group w-full">
           <label htmlFor="post-title">Title</label>
           <input type="text" id="post-title" />
